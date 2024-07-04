@@ -1,0 +1,85 @@
+//IMPORTO LIBRERIAS
+#include <LiquidCrystal.h>
+#include <Servo.h>
+//DEFINO CONSTANTES
+#define PINSERVO 11
+#define FOTORESISTENCIA A0
+#define BOTONPRENDIDO 3
+#define BOTONAPAGADO 4
+//CREO LOS OBJETOS
+LiquidCrystal lcd(5, 6, 7, 8, 9, 10);
+Servo servo;
+//INICIALIZO VARIABLES
+int apagado = 0;
+int prendido = 0;
+bool estado = true;
+//FIRMA DE FUNCIONES
+bool leerBotones();
+void escribirPantalla();
+
+void setup()
+{
+  lcd.begin(16, 2);
+  servo.attach(PINSERVO);
+  pinMode(BOTONPRENDIDO,INPUT_PULLUP);
+  pinMode(BOTONAPAGADO,INPUT_PULLUP);
+  Serial.begin(9600);
+}
+
+void loop()
+{  
+ int luz = map(analogRead(FOTORESISTENCIA),6,679,0,180); //Configuro los valores de la fotoresistencia para poder manejar con sus valores el servomotor
+ bool estadoSistema = leerBotones();
+ if(estadoSistema){
+   if (luz > 140){
+     servo.write(luz);
+     escribirPantalla(2,2,"BUEN DIA","DESPERTA   ");//Si esta activada y se hace de dia el servo se mueve y suena la alarma
+     tone(2,2600);
+   }
+   else{
+     servo.write(0);
+     noTone(2);
+     escribirPantalla(2,2,"ALARMA  ","ACTIVADA   "); //Si esta activada y es de noche el servo no se mueve
+   }
+ }
+ else{
+   noTone(2);
+   escribirPantalla(2,2,"ALARMA  ","DESACTIVADA");
+   if (luz > 140){
+     servo.write(180);}      //Si esta desactivada durante el dia girara hasta su maximo
+   else{                     //Caso contrario el servo seguira los valores que devuelva la variable luz
+   servo.write(luz);
+   }
+ }
+}
+bool leerBotones()//LEE LOS BOTONES Y DEVUELVE SI FUE ACTIVADA O NO LA ALARMA
+{
+  int leerPrendido = digitalRead(BOTONPRENDIDO); //Lee el estado de los botones
+  int leerApagado = digitalRead(BOTONAPAGADO);
+  if(leerPrendido == 0)
+  {
+    prendido = 1;
+  }                       //Verifico que se alla presionado algun boton
+  if(leerApagado == 0)
+  {
+    apagado = 1;
+  }
+  
+  if (leerPrendido == 1 && prendido == 1)//VERIFICO QUE SE HAYA PRESIONADO EL BOTON 
+  {											   //Y NO SIGA PRESIONADO
+    prendido = 0;
+    estado = true;
+  }
+  if (leerApagado == 1 && apagado == 1)
+  {
+    apagado = 0;
+    estado = false;
+  }
+  return estado;
+}
+void escribirPantalla(int colum1, int colum2, String mensaje1, String mensaje2){//ESCRIBO SOBRE LA PANTALLA LCD PASANDO 
+lcd.setCursor(colum1,0);                                                        //EL MENSAJE Y LA UBICACION QUE QUIERO POR LOS PARAMETROS
+lcd.print(mensaje1);
+lcd.setCursor(colum2,1);
+lcd.print(mensaje2);
+}
