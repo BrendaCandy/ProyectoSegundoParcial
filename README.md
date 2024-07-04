@@ -1,5 +1,5 @@
 # **Proyecto: Alarma Despertador**
-![Tinkercad](img\PracticoSegundoParcial.png)
+![Tinkercad](https://github.com/BrendaCandy/ProyectoSegundoParcial/blob/main/img/PracticoSegundoParcial.png)
 
 ## Integrantes 
 - Brenda Candy
@@ -40,23 +40,23 @@ bool leerBotones()//LEE LOS BOTONES Y DEVUELVE SI FUE ACTIVADA O NO LA ALARMA
 ~~~
 ## Componentes
 ### *Buzzer*
-![buzzer](img\buzzer.png)
+![buzzer](https://github.com/BrendaCandy/ProyectoSegundoParcial/blob/main/img/buzzer.png)
 
 Un tipo de zumbador que emite ruido en distintas frecuencias. En este proyecto lo utilizamos como alarma una vez que empiece a amanecer.
 ### *Fotoresistencia*
-![sensor](img\fotoresistencia.png)
+![sensor](https://github.com/BrendaCandy/ProyectoSegundoParcial/blob/main/img/fotoresistencia.png)
 
 Un sensor que genera voltajes segun la luz ambiente.
 ### *Pantalla LCD*
-![display](img\lcd.png)
+![display](https://github.com/BrendaCandy/ProyectoSegundoParcial/blob/main/img/lcd.png)
 
 Una pantalla de cristal liquido con capacidad de mostrar dos lineas de 16 caracteres. Mostraremos el estado de la alarma y un breve mensaje al activarse la alarma.
 ### *Servomotor*
-![leds](img\servomotor.png)
+![leds](https://github.com/BrendaCandy/ProyectoSegundoParcial/blob/main/img/servomotor.png)
 
 Un motor cuya posicion se puede controlar mediante un microcontrolador.Lo utilizamos para controlar unas cortinas de manera que al salir el sol se abran automaticamente. Y al momento de dormir y activar la alarma se cierren completamente.
 ### *Pulsadores*
-![pulsador](img\botones.png)
+![pulsador](https://github.com/BrendaCandy/ProyectoSegundoParcial/blob/main/img/botones.png)
 
 Un conmutador que cierra un circuito cuando se presiona. Agregamos dos pulsadores para manejar el activamiento y desactivamiento de la alarma.
 
